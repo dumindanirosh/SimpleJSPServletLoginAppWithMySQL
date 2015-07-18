@@ -7,6 +7,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,22 @@ public class LoginController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
+            
+            String loginame=request.getParameter("loginame");
+            String password=request.getParameter("passwrod");
+            
+            String user=getServletConfig().getInitParameter(loginame);
+            String Password=getServletConfig().getInitParameter(user);
+            
+            if(user.equals(loginame) && Password.equals(password))
+            {
+                  response.sendRedirect("Welcome.jsp");
+            }
+              else
+            {
+                RequestDispatcher rd= getServletContext().getRequestDispatcher("/index.jsp");
+            }
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
