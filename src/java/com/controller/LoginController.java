@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
            
             
              String loginame=request.getParameter("loginame");
-            String password=request.getParameter("passwrod");
+            String password=request.getParameter("password");
             
             String user=getServletConfig().getInitParameter(loginame);
             String Password=getServletConfig().getInitParameter(user);
