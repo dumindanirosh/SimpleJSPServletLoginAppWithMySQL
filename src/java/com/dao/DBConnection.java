@@ -14,20 +14,27 @@ import java.sql.DriverManager;
  */
 public class DBConnection {
     
+    // Intializing Database connection required resource data
     private static final String driverName = "com.mydql.jdbc.Driver";
     private static final String url = "jdbc:mysql:192.168.0.119:3306/login_db";
     private static final String username = "root";
     private static final String password = "1234";
     
+    /*
+    getConnection method used to release database connection object
+    */
     public static Connection getConnection(){
         
         try{
+           // Get new instance of Driver class
         Class.forName(driverName).newInstance();
         
+        // Initialize sql Connection object.
         Connection conn = DriverManager.getConnection(url, username, password);
         
         return conn;
         }catch(Exception ex){
+            
             ex.printStackTrace();
         }
         return null;
