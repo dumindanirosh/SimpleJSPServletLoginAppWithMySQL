@@ -33,20 +33,23 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
+      
+         try {
             String loginame = request.getParameter("loginame");
             String password = request.getParameter("passwrod");
-
+              
+            //Create an instance of loginDAOImpl class
             LoginDAOImpl loginDAOImpl = new LoginDAOImpl();
             String result = loginDAOImpl.login(loginame, password);
-
+       
+        //Check result for not null
             if (result != null && result.contains("success")) {
                 String userType = result.split("-")[1];
                 request.setAttribute("usetype", userType);
-
+//If succesfully log in redirect to welcome page
                 RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
                 rd.forward(request, response);
-
+//Else redirect page to index.jsp
             } else {
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
@@ -55,7 +58,6 @@ public class LoginController extends HttpServlet {
             out.close();
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
