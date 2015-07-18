@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.dao.LoginDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -33,23 +34,23 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-           
-            
-             String loginame=request.getParameter("loginame");
-            String password=request.getParameter("passwrod");
-            
-            String user=getServletConfig().getInitParameter(loginame);
-            String Password=getServletConfig().getInitParameter(user);
-            
-            if(user.equals(loginame) && Password.equals(password))
-            {
-                  response.sendRedirect("Welcome.jsp");
+            String loginame = request.getParameter("loginame");
+            String password = request.getParameter("passwrod");
+
+            LoginDAOImpl loginDAOImpl = new LoginDAOImpl();
+            String result = loginDAOImpl.login(loginame, password);
+
+            if (result != null && result.contains("success")) {
+                String userType = result.split("-")[1];
+                request.setAttribute("usetype", userType);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
+                rd.forward(request, response);
+
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                rd.forward(request, response);
             }
-              else
-            {
-                RequestDispatcher rd= getServletContext().getRequestDispatcher("/index.jsp");
-            }
-            
         } finally {
             out.close();
         }
