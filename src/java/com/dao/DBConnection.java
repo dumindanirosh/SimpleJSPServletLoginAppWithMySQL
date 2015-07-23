@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class DBConnection {
     
     // Intializing Database connection required resource data
-    private static final String driverName = "com.mydql.jdbc.Driver";
+    private static final String driverName = "com.mysql.jdbc.Driver";
     private static final String url = "jdbc:mysql:localhost:3306/login_db";
     private static final String username = "root";
     private static final String password = "123";
